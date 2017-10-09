@@ -1,0 +1,17 @@
+name: MirrorMirror
+main: nu.nerd.mirrormirror.MirrorMirror
+description: Custom mobs with Java reflection
+version: ${project.version}
+
+
+commands:
+  mirrormirror:
+    usage: /mirrormirror [subcommand]
+    description: Custom mobs with Java reflection
+    permission: mirrormirror.command
+    permission-message: You don't have permission to do that.
+
+
+permissions:
+  mirrormirror.command:
+    description: Manage MirrorMirror mobs
