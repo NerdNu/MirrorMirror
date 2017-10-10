@@ -84,6 +84,9 @@ public class ExtendedEntity {
     }
 
 
+    /**
+     * Replace pathfinder goals with a new set
+     */
     public void injectGoals(AbstractPathfinderGoal... goals) {
         try {
 
@@ -110,6 +113,9 @@ public class ExtendedEntity {
     }
 
 
+    /**
+     * Replace pathfinder targets with a new set
+     */
     public void injectTargets(AbstractPathfinderGoal... targets) {
         try {
 
