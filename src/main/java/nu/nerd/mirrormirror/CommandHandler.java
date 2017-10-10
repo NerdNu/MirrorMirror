@@ -53,7 +53,11 @@ public class CommandHandler implements CommandExecutor {
                 LivingEntity base = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.ZOMBIE);
                 ExtendedEntity e = new ExtendedEntity(base);
                 e.injectGoals(new LookAtPlayer(base));
-                e.injectTargets(new NearestAttackableTarget(base));
+                e.injectTargets(
+                        new NearestAttackableTarget(base, "EntityHuman"),
+                        new NearestAttackableTarget(base, "EntityVillager"),
+                        new NearestAttackableTarget(base, "EntityIronGolem")
+                );
             }
             return true;
         }

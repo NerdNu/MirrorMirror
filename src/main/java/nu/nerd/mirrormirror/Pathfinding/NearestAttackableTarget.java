@@ -10,8 +10,17 @@ import java.lang.reflect.Constructor;
 public class NearestAttackableTarget extends AbstractPathfinderGoal {
 
 
-    public NearestAttackableTarget(LivingEntity baseEntity) {
+    private String target;
+
+
+    /**
+     *
+     * @param baseEntity The entity this AI will apply to
+     * @param target The short class name of the NMS entity this will target. e.g. "EntityHuman" or "EntityZombie"
+     */
+    public NearestAttackableTarget(LivingEntity baseEntity, String target) {
         super(baseEntity);
+        this.target = target;
     }
 
 
@@ -21,7 +30,7 @@ public class NearestAttackableTarget extends AbstractPathfinderGoal {
             Class creature = NMSHelper.getNMSClassByName("EntityCreature");
             Class c = NMSHelper.getNMSClassByName("PathfinderGoalNearestAttackableTarget");
             Constructor constructor = c.getConstructor(creature, Class.class, boolean.class);
-            return constructor.newInstance(creature.cast(getHandle()), NMSHelper.getNMSClassByName("EntityHuman"), true);
+            return constructor.newInstance(creature.cast(getHandle()), NMSHelper.getNMSClassByName(target), true);
         } catch (Exception ex) {
             MirrorMirror.logger().warning("Error constructing PathfinderGoalNearestAttackableTarget");
             ex.printStackTrace();
