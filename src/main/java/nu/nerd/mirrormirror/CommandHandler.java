@@ -61,20 +61,16 @@ public class CommandHandler implements CommandExecutor {
                 Player p = (Player) sender;
                 LivingEntity base = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.GIANT);
                 ExtendedEntity e = new ExtendedEntity(base);
-                e.injectGoals(
-                        new FloatGoal(base),
-                        new MeleeAttack(base, 1.0d, false),
-                        new MoveTowardRestriction(base, 1.0d),
-                        new RandomStrollLand(base, 1.0d),
-                        new LookAtPlayer(base),
-                        new RandomLookAround(base)
-                );
-                e.injectTargets(
-                        new NearestAttackableTarget(base, "EntityHuman"),
-                        new NearestAttackableTarget(base, "EntityVillager"),
-                        new NearestAttackableTarget(base, "EntityIronGolem"),
-                        new MoveThroughVillage(base, 1.0d, false)
-                );
+                e.injectGoal(0, new FloatGoal(base));
+                e.injectGoal(2, new MeleeAttack(base, 1.0d, false));
+                e.injectGoal(5, new MoveTowardRestriction(base, 1.0d));
+                e.injectGoal(7, new RandomStrollLand(base, 1.0d));
+                e.injectGoal(8, new LookAtPlayer(base));
+                e.injectGoal(8, new RandomLookAround(base));
+                e.injectGoal(6, new MoveThroughVillage(base, 1.0d, false));
+                e.injectTarget(2, new NearestAttackableTarget(base, "EntityHuman"));
+                e.injectTarget(3, new NearestAttackableTarget(base, "EntityVillager"));
+                e.injectTarget(3, new NearestAttackableTarget(base, "EntityIronGolem"));
             }
             return true;
         }

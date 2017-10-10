@@ -85,30 +85,61 @@ public class ExtendedEntity {
 
 
     /**
-     * Replace pathfinder goals with a new set
+     * Insert a pathfinder goal
+     * @param weight the weight of the goal
+     * @param goal the goal to insert
      */
-    public void injectGoals(AbstractPathfinderGoal... goals) {
+    public void injectGoal(int weight, AbstractPathfinderGoal goal) {
         try {
 
-            // Clear any existing goals before pushing the list
             Object handle = getHandle();
-            clearGoals();
 
             // Obtain the addition method
             Class pfg = NMSHelper.getNMSClassByName("PathfinderGoal");
             Object goalSelector = handle.getClass().getField("goalSelector").get(handle);
             Method add = goalSelector.getClass().getMethod("a", int.class, pfg);
 
-            // Inject the fabricated goals
-            List<AbstractPathfinderGoal> goalsList = Arrays.asList(goals);
-            for (AbstractPathfinderGoal goal : goalsList) {
-                add.invoke(goalSelector, goalsList.indexOf(goal), pfg.cast(goal.get()));
-            }
+            // Inject the fabricated goal
+            add.invoke(goalSelector, weight, pfg.cast(goal.get()));
 
         } catch (Exception ex) {
-            MirrorMirror.logger().warning("Error clearning goals for entity: " + baseEntity.getUniqueId());
             MirrorMirror.logger().warning(ex.getMessage());
-            ex.printStackTrace();
+        }
+    }
+
+
+    /**
+     * Replace pathfinder goals with a new set
+     */
+    public void injectGoals(AbstractPathfinderGoal... goals) {
+        clearGoals();
+        List<AbstractPathfinderGoal> goalsList = Arrays.asList(goals);
+        for (AbstractPathfinderGoal goal : goalsList) {
+            injectGoal(goalsList.indexOf(goal), goal);
+        }
+    }
+
+
+    /**
+     * Insert a pathfinder target
+     * @param weight the weight of the goal
+     * @param target the target to insert
+     */
+    public void injectTarget(int weight, AbstractPathfinderGoal target) {
+        try {
+
+            Object handle = getHandle();
+
+            // Obtain the addition method
+            Class pfg = NMSHelper.getNMSClassByName("PathfinderGoal");
+            Object targetSelector = handle.getClass().getField("targetSelector").get(handle);
+            Method add = targetSelector.getClass().getMethod("a", int.class, pfg);
+
+            // Inject the fabricated target
+            add.invoke(targetSelector, weight, pfg.cast(target.get()));
+
+        } catch (Exception ex) {
+            MirrorMirror.logger().warning(ex.getMessage());
         }
     }
 
@@ -117,27 +148,10 @@ public class ExtendedEntity {
      * Replace pathfinder targets with a new set
      */
     public void injectTargets(AbstractPathfinderGoal... targets) {
-        try {
-
-            // Clear any existing targets before pushing the list
-            Object handle = getHandle();
-            clearTargets();
-
-            // Obtain the addition method
-            Class pfg = NMSHelper.getNMSClassByName("PathfinderGoal");
-            Object targetSelector = handle.getClass().getField("targetSelector").get(handle);
-            Method add = targetSelector.getClass().getMethod("a", int.class, pfg);
-
-            // Inject the fabricated goals
-            List<AbstractPathfinderGoal> targetsList = Arrays.asList(targets);
-            for (AbstractPathfinderGoal goal : targets) {
-                add.invoke(targetSelector, targetsList.indexOf(goal), pfg.cast(goal.get()));
-            }
-
-        } catch (Exception ex) {
-            MirrorMirror.logger().warning("Error clearning goals for entity: " + baseEntity.getUniqueId());
-            MirrorMirror.logger().warning(ex.getMessage());
-            ex.printStackTrace();
+        clearTargets();
+        List<AbstractPathfinderGoal> targetsList = Arrays.asList(targets);
+        for (AbstractPathfinderGoal goal : targetsList) {
+            injectTarget(targetsList.indexOf(goal), goal);
         }
     }
 
