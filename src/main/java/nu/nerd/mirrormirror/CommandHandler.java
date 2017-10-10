@@ -1,6 +1,7 @@
 package nu.nerd.mirrormirror;
 
 import nu.nerd.mirrormirror.Pathfinding.AbstractPathfinderGoal;
+import nu.nerd.mirrormirror.Pathfinding.FloatGoal;
 import nu.nerd.mirrormirror.Pathfinding.LookAtPlayer;
 import nu.nerd.mirrormirror.Pathfinding.NearestAttackableTarget;
 import org.bukkit.command.Command;
@@ -52,7 +53,10 @@ public class CommandHandler implements CommandExecutor {
                 Player p = (Player) sender;
                 LivingEntity base = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.ZOMBIE);
                 ExtendedEntity e = new ExtendedEntity(base);
-                e.injectGoals(new LookAtPlayer(base));
+                e.injectGoals(
+                        new FloatGoal(base),
+                        new LookAtPlayer(base)
+                );
                 e.injectTargets(
                         new NearestAttackableTarget(base, "EntityHuman"),
                         new NearestAttackableTarget(base, "EntityVillager"),
