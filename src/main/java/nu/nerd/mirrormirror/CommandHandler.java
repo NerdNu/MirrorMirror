@@ -1,18 +1,13 @@
 package nu.nerd.mirrormirror;
 
-import nu.nerd.mirrormirror.Pathfinding.AbstractPathfinderGoal;
-import nu.nerd.mirrormirror.Pathfinding.FloatGoal;
-import nu.nerd.mirrormirror.Pathfinding.LookAtPlayer;
-import nu.nerd.mirrormirror.Pathfinding.NearestAttackableTarget;
+
+import nu.nerd.mirrormirror.Pathfinding.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class CommandHandler implements CommandExecutor {
@@ -58,9 +53,27 @@ public class CommandHandler implements CommandExecutor {
                         new LookAtPlayer(base)
                 );
                 e.injectTargets(
+                        new NearestAttackableTarget(base, "EntityHuman")
+                );
+            }
+            else if (args[0].equalsIgnoreCase("giant")) {
+                // spawn a giant with regular zombie AI
+                Player p = (Player) sender;
+                LivingEntity base = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.GIANT);
+                ExtendedEntity e = new ExtendedEntity(base);
+                e.injectGoals(
+                        new FloatGoal(base),
+                        new MeleeAttack(base, 1.0d, false),
+                        new MoveTowardRestriction(base, 1.0d),
+                        new RandomStrollLand(base, 1.0d),
+                        new LookAtPlayer(base),
+                        new RandomLookAround(base)
+                );
+                e.injectTargets(
                         new NearestAttackableTarget(base, "EntityHuman"),
                         new NearestAttackableTarget(base, "EntityVillager"),
-                        new NearestAttackableTarget(base, "EntityIronGolem")
+                        new NearestAttackableTarget(base, "EntityIronGolem"),
+                        new MoveThroughVillage(base, 1.0d, false)
                 );
             }
             return true;
