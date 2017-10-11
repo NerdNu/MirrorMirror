@@ -17,7 +17,7 @@ public class MirrorMirror extends JavaPlugin {
     }
 
 
-    public static Logger logger() {
+    protected static Logger logger() {
         return MirrorMirror.instance.getLogger();
     }
 
