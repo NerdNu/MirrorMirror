@@ -2,9 +2,11 @@ package nu.nerd.mirrormirror;
 
 import nu.nerd.mirrormirror.Pathfinding.AbstractPathfinderGoal;
 import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
@@ -152,6 +154,44 @@ public class ExtendedEntity {
         List<AbstractPathfinderGoal> targetsList = Arrays.asList(targets);
         for (AbstractPathfinderGoal goal : targetsList) {
             injectTarget(targetsList.indexOf(goal), goal);
+        }
+    }
+
+
+    /**
+     * On a creeper, set the radius of the explosion
+     * @param radius radius of the explosion in blocks
+     */
+    public void setCreeperExplosionRadius(int radius) {
+        if (baseEntity.getType().equals(EntityType.CREEPER)) {
+            try {
+                Object handle = getHandle();
+                Field field = handle.getClass().getDeclaredField("explosionRadius");
+                field.setAccessible(true);
+                field.setInt(handle, radius);
+                field.setAccessible(false);
+            } catch (Exception ex) {
+                MirrorMirror.logger().warning(ex.getMessage());
+            }
+        }
+    }
+
+
+    /**
+     * On a creeper, set the maximum fuse ticks
+     * @param ticks the greatest number of ticks before the explosion
+     */
+    public void setCreeperMaxFuseTicks(int ticks) {
+        if (baseEntity.getType().equals(EntityType.CREEPER)) {
+            try {
+                Object handle = getHandle();
+                Field field = handle.getClass().getDeclaredField("maxFuseTicks");
+                field.setAccessible(true);
+                field.setInt(handle, ticks);
+                field.setAccessible(false);
+            } catch (Exception ex) {
+                MirrorMirror.logger().warning(ex.getMessage());
+            }
         }
     }
 

@@ -73,6 +73,14 @@ public class CommandHandler implements CommandExecutor {
                 e.injectTarget(3, new NearestAttackableTarget(base, "EntityVillager"));
                 e.injectTarget(3, new NearestAttackableTarget(base, "EntityIronGolem"));
             }
+            else if (args[0].equalsIgnoreCase("creeper")) {
+                // spawn a powerful creeper
+                Player p = (Player) sender;
+                LivingEntity base = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.CREEPER);
+                ExtendedEntity e = new ExtendedEntity(base);
+                e.setCreeperExplosionRadius(12);
+                e.setCreeperMaxFuseTicks(8);
+            }
             return true;
         }
         return false;
