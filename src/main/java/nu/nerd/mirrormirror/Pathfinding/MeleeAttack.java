@@ -7,6 +7,10 @@ import org.bukkit.entity.LivingEntity;
 
 import java.lang.reflect.Constructor;
 
+
+/**
+ * Causes the entity to use its melee attack on its applicable targets
+ */
 public class MeleeAttack extends AbstractPathfinderGoal {
 
 

@@ -7,6 +7,10 @@ import org.bukkit.entity.LivingEntity;
 
 import java.lang.reflect.Constructor;
 
+
+/**
+ * Causes the entity to look at the nearest player
+ */
 public class LookAtPlayer extends AbstractPathfinderGoal {
 
 

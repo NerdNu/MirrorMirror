@@ -7,6 +7,10 @@ import org.bukkit.entity.LivingEntity;
 import java.lang.reflect.Constructor;
 
 
+/**
+ * The entity will target entities of the specified NMS class.
+ * When a target is acquired, the MeleeAttack or BowShoot goals will attack the target.
+ */
 public class NearestAttackableTarget extends AbstractPathfinderGoal {
 
 

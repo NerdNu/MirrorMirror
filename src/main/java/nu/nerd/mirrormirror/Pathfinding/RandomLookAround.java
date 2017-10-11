@@ -7,6 +7,10 @@ import org.bukkit.entity.LivingEntity;
 
 import java.lang.reflect.Constructor;
 
+
+/**
+ * The entity will look around randomly when not targeting something.
+ */
 public class RandomLookAround extends AbstractPathfinderGoal {
 
 

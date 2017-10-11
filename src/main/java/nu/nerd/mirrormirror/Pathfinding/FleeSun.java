@@ -7,19 +7,23 @@ import org.bukkit.entity.LivingEntity;
 
 import java.lang.reflect.Constructor;
 
-
 /**
- * Walk around randomly when lacking a target.
+ * Entity will attempt to hide from the sun.
  */
-public class RandomStrollLand extends AbstractPathfinderGoal {
+public class FleeSun extends AbstractPathfinderGoal {
 
 
-    private double d0;
+    private double speed;
 
 
-    public RandomStrollLand(LivingEntity baseEntity, double d0) {
+    /**
+     * Constructor
+     * @param baseEntity the entity
+     * @param speed the speed the entity will run at
+     */
+    public FleeSun(LivingEntity baseEntity, double speed) {
         super(baseEntity);
-        this.d0 = d0;
+        this.speed = speed;
     }
 
 
@@ -27,11 +31,11 @@ public class RandomStrollLand extends AbstractPathfinderGoal {
     public Object get() {
         try {
             Class creature = NMSHelper.getNMSClassByName("EntityCreature");
-            Class c = NMSHelper.getNMSClassByName("PathfinderGoalRandomStrollLand");
+            Class c = NMSHelper.getNMSClassByName("PathfinderGoalFleeSun");
             Constructor constructor = c.getConstructor(creature, double.class);
-            return constructor.newInstance(getHandle(), d0);
+            return constructor.newInstance(creature.cast(getHandle()), speed);
         } catch (Exception ex) {
-            MirrorMirror.logger().warning("Error constructing PathfinderGoalRandomStrollLand");
+            MirrorMirror.logger().warning("Error constructing PathfinderGoalFleeSun");
             ex.printStackTrace();
             return null;
         }

@@ -6,7 +6,7 @@ import nu.nerd.mirrormirror.NMSHelper;
 import org.bukkit.entity.LivingEntity;
 
 import java.lang.reflect.Constructor;
-import java.util.Objects;
+
 
 public class ArrowAttack extends AbstractPathfinderGoal {
 

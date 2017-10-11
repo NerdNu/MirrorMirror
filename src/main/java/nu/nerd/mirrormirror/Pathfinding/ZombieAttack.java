@@ -7,6 +7,11 @@ import org.bukkit.entity.LivingEntity;
 
 import java.lang.reflect.Constructor;
 
+
+/**
+ * Zombies use this instead of MeleeAttack.
+ * This goal will only accept an EntityZombie.
+ */
 public class ZombieAttack extends AbstractPathfinderGoal {
 
 

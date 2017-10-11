@@ -7,6 +7,11 @@ import org.bukkit.entity.LivingEntity;
 
 import java.lang.reflect.Constructor;
 
+
+/**
+ * Causes the entity to float in water.
+ * Without this goal, they sink to the bottom and drown.
+ */
 public class FloatGoal extends AbstractPathfinderGoal {
 
 
