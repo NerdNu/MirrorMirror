@@ -81,6 +81,17 @@ public class CommandHandler implements CommandExecutor {
                 e.setCreeperExplosionRadius(12);
                 e.setCreeperMaxFuseTicks(8);
             }
+            else if (args[0].equalsIgnoreCase("skeleton")) {
+                // spawn a skeleton with custom AI
+                Player p = (Player) sender;
+                LivingEntity base = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.SKELETON);
+                ExtendedEntity e = new ExtendedEntity(base);
+                e.clearGoals();
+                e.injectGoal(1, new BowShoot(base, 1.0d, 20, 15.0f));
+                e.clearTargets();
+                e.injectTarget(2, new NearestAttackableTarget(base, "EntityHuman"));
+                e.injectTarget(2, new NearestAttackableTarget(base, "EntityVillager"));
+            }
             return true;
         }
         return false;
