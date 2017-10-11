@@ -68,6 +68,7 @@ public class CommandHandler implements CommandExecutor {
                 e.injectGoal(8, new LookAtPlayer(base));
                 e.injectGoal(8, new RandomLookAround(base));
                 e.injectGoal(6, new MoveThroughVillage(base, 1.0d, false));
+                e.injectTarget(1, new HurtByTarget(base, true, "EntityPigZombie"));
                 e.injectTarget(2, new NearestAttackableTarget(base, "EntityHuman"));
                 e.injectTarget(3, new NearestAttackableTarget(base, "EntityVillager"));
                 e.injectTarget(3, new NearestAttackableTarget(base, "EntityIronGolem"));
