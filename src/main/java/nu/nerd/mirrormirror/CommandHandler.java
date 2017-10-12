@@ -107,6 +107,7 @@ public class CommandHandler implements CommandExecutor {
                 ExtendedEntity e = new ExtendedEntity(base);
                 e.clearGoals();
                 e.injectGoal(2, new Tempt(base, 1.0d, false, Sets.newHashSet(new ItemStack(Material.ANVIL))));
+                e.injectGoal(3, new LookAtPlayer(base, "EntityVillager"));
                 e.clearTargets();
             }
             return true;

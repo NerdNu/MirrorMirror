@@ -14,8 +14,18 @@ import java.lang.reflect.Constructor;
 public class LookAtPlayer extends AbstractPathfinderGoal {
 
 
+    private String mobClass;
+
+
     public LookAtPlayer(LivingEntity baseEntity) {
         super(baseEntity);
+        mobClass = "EntityHuman";
+    }
+
+
+    public LookAtPlayer(LivingEntity baseEntity, String mobClass) {
+        super(baseEntity);
+        this.mobClass = mobClass;
     }
 
 
@@ -25,7 +35,7 @@ public class LookAtPlayer extends AbstractPathfinderGoal {
             Class insentient = NMSHelper.getNMSClassByName("EntityInsentient");
             Class c = NMSHelper.getNMSClassByName("PathfinderGoalLookAtPlayer");
             Constructor constructor = c.getConstructor(insentient, Class.class, float.class);
-            return constructor.newInstance(insentient.cast(getHandle()), NMSHelper.getNMSClassByName("EntityHuman"), 8f);
+            return constructor.newInstance(insentient.cast(getHandle()), NMSHelper.getNMSClassByName(mobClass), 8f);
         } catch (Exception ex) {
             MirrorMirror.logger().warning("Error constructing PathfinderGoalLookAtPlayer");
             ex.printStackTrace();
