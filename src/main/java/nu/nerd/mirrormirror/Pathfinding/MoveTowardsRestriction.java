@@ -7,13 +7,13 @@ import org.bukkit.entity.LivingEntity;
 
 import java.lang.reflect.Constructor;
 
-public class MoveTowardRestriction extends AbstractPathfinderGoal {
+public class MoveTowardsRestriction extends AbstractPathfinderGoal {
 
 
     private double d0;
 
 
-    public MoveTowardRestriction(LivingEntity baseEntity, double d0) {
+    public MoveTowardsRestriction(LivingEntity baseEntity, double d0) {
         super(baseEntity);
         this.d0 = d0;
     }

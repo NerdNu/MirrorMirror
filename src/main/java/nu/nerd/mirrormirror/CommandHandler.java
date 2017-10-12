@@ -63,7 +63,7 @@ public class CommandHandler implements CommandExecutor {
                 ExtendedEntity e = new ExtendedEntity(base);
                 e.injectGoal(0, new FloatGoal(base));
                 e.injectGoal(2, new MeleeAttack(base, 1.0d, false));
-                e.injectGoal(5, new MoveTowardRestriction(base, 1.0d));
+                e.injectGoal(5, new MoveTowardsRestriction(base, 1.0d));
                 e.injectGoal(7, new RandomStrollLand(base, 1.0d));
                 e.injectGoal(8, new LookAtPlayer(base));
                 e.injectGoal(8, new RandomLookAround(base));
@@ -78,7 +78,6 @@ public class CommandHandler implements CommandExecutor {
                 LivingEntity base = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.CREEPER);
                 ExtendedEntity e = new ExtendedEntity(base);
                 e.clearGoals();
-                e.injectGoal(1, new Swell(base));
                 e.injectGoal(2, new MeleeAttack(base, 1.0d, false));
                 e.injectGoal(7, new RandomStrollLand(base, 0.8d));
                 e.injectGoal(8, new RandomLookAround(base));
