@@ -88,10 +88,10 @@ public class ExtendedEntity {
 
     /**
      * Insert a pathfinder goal
-     * @param weight the weight of the goal
+     * @param priority the priority of the goal (lower numbers have higher priority)
      * @param goal the goal to insert
      */
-    public void injectGoal(int weight, AbstractPathfinderGoal goal) {
+    public void injectGoal(int priority, AbstractPathfinderGoal goal) {
         try {
 
             Object handle = getHandle();
@@ -102,7 +102,7 @@ public class ExtendedEntity {
             Method add = goalSelector.getClass().getMethod("a", int.class, pfg);
 
             // Inject the fabricated goal
-            add.invoke(goalSelector, weight, pfg.cast(goal.get()));
+            add.invoke(goalSelector, priority, pfg.cast(goal.get()));
 
         } catch (Exception ex) {
             MirrorMirror.logger().warning(ex.getMessage());
@@ -124,10 +124,10 @@ public class ExtendedEntity {
 
     /**
      * Insert a pathfinder target
-     * @param weight the weight of the goal
+     * @param priority the priority of the goal (lower numbers have higher priority)
      * @param target the target to insert
      */
-    public void injectTarget(int weight, AbstractPathfinderGoal target) {
+    public void injectTarget(int priority, AbstractPathfinderGoal target) {
         try {
 
             Object handle = getHandle();
@@ -138,7 +138,7 @@ public class ExtendedEntity {
             Method add = targetSelector.getClass().getMethod("a", int.class, pfg);
 
             // Inject the fabricated target
-            add.invoke(targetSelector, weight, pfg.cast(target.get()));
+            add.invoke(targetSelector, priority, pfg.cast(target.get()));
 
         } catch (Exception ex) {
             MirrorMirror.logger().warning(ex.getMessage());

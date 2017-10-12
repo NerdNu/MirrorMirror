@@ -91,7 +91,7 @@ public class CommandHandler implements CommandExecutor {
                 e.injectGoal(3, new FleeSun(base, 1.5d));
                 e.injectGoal(3, new AvoidTarget(base, "EntityChicken", 2.0F, 1.0D, 1.2D));
                 e.clearTargets();
-                e.injectTarget(2, new NearestAttackableTarget(base, "EntityHuman"));
+                e.injectTarget(1, new HurtByTarget(base, true, "EntityHuman"));
                 e.injectTarget(2, new NearestAttackableTarget(base, "EntityVillager"));
             }
             return true;
