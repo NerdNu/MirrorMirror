@@ -9,6 +9,10 @@ import java.lang.reflect.Constructor;
 import java.util.HashSet;
 import java.util.Set;
 
+
+/**
+ * Change an entity's target to the last entity to hurt it
+ */
 public class HurtByTarget extends AbstractPathfinderGoal {
 
 

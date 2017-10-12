@@ -74,12 +74,16 @@ public class CommandHandler implements CommandExecutor {
                 e.injectTarget(3, new NearestAttackableTarget(base, "EntityIronGolem"));
             }
             else if (args[0].equalsIgnoreCase("creeper")) {
-                // spawn a powerful creeper
                 Player p = (Player) sender;
                 LivingEntity base = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.CREEPER);
                 ExtendedEntity e = new ExtendedEntity(base);
-                e.setCreeperExplosionRadius(12);
-                e.setCreeperMaxFuseTicks(8);
+                e.clearGoals();
+                e.injectGoal(1, new Swell(base));
+                e.injectGoal(2, new MeleeAttack(base, 1.0d, false));
+                e.injectGoal(7, new RandomStrollLand(base, 0.8d));
+                e.injectGoal(8, new RandomLookAround(base));
+                e.clearTargets();
+                e.injectTarget(2, new NearestAttackableTarget(base, "EntityVillager"));
             }
             else if (args[0].equalsIgnoreCase("skeleton")) {
                 // spawn a skeleton with custom AI
