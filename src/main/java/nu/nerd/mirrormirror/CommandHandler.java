@@ -1,13 +1,16 @@
 package nu.nerd.mirrormirror;
 
 
+import com.google.common.collect.Sets;
 import nu.nerd.mirrormirror.Pathfinding.*;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 
 public class CommandHandler implements CommandExecutor {
@@ -81,6 +84,7 @@ public class CommandHandler implements CommandExecutor {
                 e.injectGoal(2, new MeleeAttack(base, 1.0d, false));
                 e.injectGoal(7, new RandomStrollLand(base, 0.8d));
                 e.injectGoal(8, new RandomLookAround(base));
+                e.injectGoal(1, new Panic(base, 1.4d));
                 e.clearTargets();
                 e.injectTarget(2, new NearestAttackableTarget(base, "EntityVillager"));
             }
@@ -96,6 +100,14 @@ public class CommandHandler implements CommandExecutor {
                 e.clearTargets();
                 e.injectTarget(1, new HurtByTarget(base, true, "EntityHuman"));
                 e.injectTarget(2, new NearestAttackableTarget(base, "EntityVillager"));
+            }
+            else if (args[0].equalsIgnoreCase("chicken")) {
+                Player p = (Player) sender;
+                LivingEntity base = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.CHICKEN);
+                ExtendedEntity e = new ExtendedEntity(base);
+                e.clearGoals();
+                e.injectGoal(2, new Tempt(base, 1.0d, false, Sets.newHashSet(new ItemStack(Material.ANVIL))));
+                e.clearTargets();
             }
             return true;
         }
