@@ -111,20 +111,6 @@ public class CommandHandler implements CommandExecutor {
                 e.injectGoal(3, new LookAtPlayer(base, "EntityVillager"));
                 e.clearTargets();
             }
-            else if (args[0].equalsIgnoreCase("cat")) {
-                Player p = (Player) sender;
-                LivingEntity base = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.OCELOT);
-                ((Tameable) base).setOwner(p);
-                ((Tameable) base).setTamed(true);
-                ExtendedEntity e = new ExtendedEntity(base);
-                e.clearGoals();
-                e.injectGoal(3, new JumpOnBlock(base, 1.0d));
-                e.injectGoal(2, new FollowOwner(base, 1.0d, 5.0f, 10.0f));
-                e.injectGoal(1, new LeapAtTarget(base, 2.0f));
-                e.injectGoal(1, new OcelotAttack(base));
-                e.clearTargets();
-                e.injectTarget(1, new NearestAttackableTarget(base, "EntityZombie"));
-            }
             return true;
         }
         return false;
