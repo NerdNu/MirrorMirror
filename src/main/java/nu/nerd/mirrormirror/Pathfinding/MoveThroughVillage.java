@@ -7,17 +7,26 @@ import org.bukkit.entity.LivingEntity;
 
 import java.lang.reflect.Constructor;
 
+/**
+ * The entity will navigate a village
+ */
 public class MoveThroughVillage extends AbstractPathfinderGoal {
 
 
-    private double d0;
-    private boolean flag;
+    private double speed;
+    private boolean isNocturnal;
 
 
-    public MoveThroughVillage(LivingEntity baseEntity, double d0, boolean flag) {
+    /**
+     * Constructor
+     * @param baseEntity the entity
+     * @param speed movement speed
+     * @param isNocturnal if true, the entity won't do anything in the day
+     */
+    public MoveThroughVillage(LivingEntity baseEntity, double speed, boolean isNocturnal) {
         super(baseEntity);
-        this.d0 = d0;
-        this.flag = flag;
+        this.speed = speed;
+        this.isNocturnal = isNocturnal;
     }
 
 
@@ -27,7 +36,7 @@ public class MoveThroughVillage extends AbstractPathfinderGoal {
             Class creature = NMSHelper.getNMSClassByName("EntityCreature");
             Class c = NMSHelper.getNMSClassByName("PathfinderGoalMoveThroughVillage");
             Constructor constructor = c.getConstructor(creature, double.class, boolean.class);
-            return constructor.newInstance(getHandle(), d0, flag);
+            return constructor.newInstance(getHandle(), speed, isNocturnal);
         } catch (Exception ex) {
             MirrorMirror.logger().warning("Error constructing PathfinderGoalMoveThroughVillage");
             ex.printStackTrace();

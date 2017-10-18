@@ -15,14 +15,14 @@ import java.lang.reflect.Constructor;
 public class ZombieAttack extends AbstractPathfinderGoal {
 
 
-    private double d0;
-    private boolean flag;
+    private double speed;
+    private boolean longMemory;
 
 
-    public ZombieAttack(LivingEntity baseEntity, double d0, boolean flag) {
+    public ZombieAttack(LivingEntity baseEntity, double speed, boolean longMemory) {
         super(baseEntity);
-        this.d0 = d0;
-        this.flag = flag;
+        this.speed = speed;
+        this.longMemory = longMemory;
     }
 
 
@@ -32,7 +32,7 @@ public class ZombieAttack extends AbstractPathfinderGoal {
             Class zombie = NMSHelper.getNMSClassByName("EntityZombie");
             Class c = NMSHelper.getNMSClassByName("PathfinderGoalZombieAttack");
             Constructor constructor = c.getConstructor(zombie, double.class, boolean.class);
-            return constructor.newInstance(getHandle(), d0, flag);
+            return constructor.newInstance(getHandle(), speed, longMemory);
         } catch (Exception ex) {
             MirrorMirror.logger().warning("Error constructing PathfinderGoalZombieAttack");
             ex.printStackTrace();

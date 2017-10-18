@@ -17,8 +17,8 @@ public class AvoidTarget extends AbstractPathfinderGoal {
 
     private String avoidClass;
     private float threshold;
-    private double d0;
-    private double d1;
+    private double farSpeed;
+    private double nearSpeed;
 
 
     /**
@@ -26,15 +26,15 @@ public class AvoidTarget extends AbstractPathfinderGoal {
      * d0 and d1 seem to be conditional speeds for fleeing
      * @param baseEntity the entity
      * @param threshold aggro distance
-     * @param d0 conditional speed 11? (needs doc)
-     * @param d1 conditional speed 2? (needs doc)
+     * @param farSpeed speed when the entity isn't close by
+     * @param nearSpeed speed when the distance between the entitites is short
      */
-    public AvoidTarget(LivingEntity baseEntity, String avoidClass, float threshold, double d0, double d1) {
+    public AvoidTarget(LivingEntity baseEntity, String avoidClass, float threshold, double farSpeed, double nearSpeed) {
         super(baseEntity);
         this.avoidClass = avoidClass;
         this.threshold = threshold;
-        this.d0 = d0;
-        this.d1 = d1;
+        this.farSpeed = farSpeed;
+        this.nearSpeed = nearSpeed;
     }
 
 
@@ -45,7 +45,7 @@ public class AvoidTarget extends AbstractPathfinderGoal {
             Class avoid = NMSHelper.getNMSClassByName(avoidClass);
             Class c = NMSHelper.getNMSClassByName("PathfinderGoalAvoidTarget");
             Constructor constructor = c.getConstructor(creature, Class.class, float.class, double.class, double.class);
-            return constructor.newInstance(creature.cast(getHandle()), avoid, threshold, d0, d1);
+            return constructor.newInstance(creature.cast(getHandle()), avoid, threshold, farSpeed, nearSpeed);
         } catch (Exception ex) {
             MirrorMirror.logger().warning("Error constructing PathfinderGoalAvoidTarget");
             ex.printStackTrace();

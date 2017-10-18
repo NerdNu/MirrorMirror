@@ -18,22 +18,22 @@ import java.util.Set;
 public class Tempt extends AbstractPathfinderGoal {
 
 
-    private double d0;
-    private boolean flag;
+    private double speed;
+    private boolean scaredByMovement;
     private Set<Object> nmsItems;
 
 
     /**
      * Constructor
      * @param baseEntity the entity
-     * @param d0 unknown
-     * @param flag unknown
+     * @param speed speed
+     * @param scaredByMovement if true, the mob dislikes player movement (e.g. ocelot)
      * @param items Set of Bukkit ItemStacks representing temptable items
      */
-    public Tempt(LivingEntity baseEntity, double d0, boolean flag, Set<ItemStack> items) {
+    public Tempt(LivingEntity baseEntity, double speed, boolean scaredByMovement, Set<ItemStack> items) {
         super(baseEntity);
-        this.d0 = d0;
-        this.flag = flag;
+        this.speed = speed;
+        this.scaredByMovement = scaredByMovement;
         this.nmsItems = new HashSet<Object>();
         try {
             for (ItemStack item : items) {
@@ -53,7 +53,7 @@ public class Tempt extends AbstractPathfinderGoal {
             Class creature = NMSHelper.getNMSClassByName("EntityCreature");
             Class c = NMSHelper.getNMSClassByName("PathfinderGoalTempt");
             Constructor constructor = c.getConstructor(creature, double.class, boolean.class, Set.class);
-            return constructor.newInstance(creature.cast(getHandle()), d0, flag, nmsItems);
+            return constructor.newInstance(creature.cast(getHandle()), speed, scaredByMovement, nmsItems);
         } catch (Exception ex) {
             MirrorMirror.logger().warning("Error constructing PathfinderGoalTempt");
             ex.printStackTrace();

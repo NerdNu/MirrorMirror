@@ -14,12 +14,12 @@ import java.lang.reflect.Constructor;
 public class RandomStrollLand extends AbstractPathfinderGoal {
 
 
-    private double d0;
+    private double speed;
 
 
-    public RandomStrollLand(LivingEntity baseEntity, double d0) {
+    public RandomStrollLand(LivingEntity baseEntity, double speed) {
         super(baseEntity);
-        this.d0 = d0;
+        this.speed = speed;
     }
 
 
@@ -29,7 +29,7 @@ public class RandomStrollLand extends AbstractPathfinderGoal {
             Class creature = NMSHelper.getNMSClassByName("EntityCreature");
             Class c = NMSHelper.getNMSClassByName("PathfinderGoalRandomStrollLand");
             Constructor constructor = c.getConstructor(creature, double.class);
-            return constructor.newInstance(getHandle(), d0);
+            return constructor.newInstance(getHandle(), speed);
         } catch (Exception ex) {
             MirrorMirror.logger().warning("Error constructing PathfinderGoalRandomStrollLand");
             ex.printStackTrace();

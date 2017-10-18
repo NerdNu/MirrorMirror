@@ -7,15 +7,24 @@ import org.bukkit.entity.LivingEntity;
 
 import java.lang.reflect.Constructor;
 
+
+/**
+ * Causes an entity to move back to its home position.
+ */
 public class MoveTowardsRestriction extends AbstractPathfinderGoal {
 
 
-    private double d0;
+    private double speed;
 
 
-    public MoveTowardsRestriction(LivingEntity baseEntity, double d0) {
+    /**
+     * Constructor
+     * @param baseEntity entity
+     * @param speed movement speed
+     */
+    public MoveTowardsRestriction(LivingEntity baseEntity, double speed) {
         super(baseEntity);
-        this.d0 = d0;
+        this.speed = speed;
     }
 
 
@@ -25,7 +34,7 @@ public class MoveTowardsRestriction extends AbstractPathfinderGoal {
             Class creature = NMSHelper.getNMSClassByName("EntityCreature");
             Class c = NMSHelper.getNMSClassByName("PathfinderGoalMoveTowardsRestriction");
             Constructor constructor = c.getConstructor(creature, double.class);
-            return constructor.newInstance(getHandle(), d0);
+            return constructor.newInstance(getHandle(), speed);
         } catch (Exception ex) {
             MirrorMirror.logger().warning("Error constructing PathfinderGoalMoveTowardsRestriction");
             ex.printStackTrace();

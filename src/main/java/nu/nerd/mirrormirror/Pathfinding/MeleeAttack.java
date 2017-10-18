@@ -14,14 +14,20 @@ import java.lang.reflect.Constructor;
 public class MeleeAttack extends AbstractPathfinderGoal {
 
 
-    private double d0;
-    private boolean flag;
+    private double speed;
+    private boolean longMemory;
 
 
-    public MeleeAttack(LivingEntity baseEntity, double d0, boolean flag) {
+    /**
+     * Constructor
+     * @param baseEntity the entity
+     * @param speed the speed the mob will approach its target
+     * @param longMemory remain hostile longer, even when a clear path is unavailable
+     */
+    public MeleeAttack(LivingEntity baseEntity, double speed, boolean longMemory) {
         super(baseEntity);
-        this.d0 = d0;
-        this.flag = flag;
+        this.speed = speed;
+        this.longMemory = longMemory;
     }
 
 
@@ -31,7 +37,7 @@ public class MeleeAttack extends AbstractPathfinderGoal {
             Class creature = NMSHelper.getNMSClassByName("EntityCreature");
             Class c = NMSHelper.getNMSClassByName("PathfinderGoalMeleeAttack");
             Constructor constructor = c.getConstructor(creature, double.class, boolean.class);
-            return constructor.newInstance(getHandle(), d0, flag);
+            return constructor.newInstance(getHandle(), speed, longMemory);
         } catch (Exception ex) {
             MirrorMirror.logger().warning("Error constructing PathfinderGoalMeleeAttack");
             ex.printStackTrace();

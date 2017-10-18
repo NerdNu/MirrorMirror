@@ -11,10 +11,10 @@ import java.lang.reflect.Constructor;
 public class Panic extends AbstractPathfinderGoal {
 
 
-    private double d0;
+    private double speed;
 
 
-    public Panic(LivingEntity baseEntity, double d0) {
+    public Panic(LivingEntity baseEntity, double speed) {
         super(baseEntity);
     }
 
@@ -25,7 +25,7 @@ public class Panic extends AbstractPathfinderGoal {
             Class creature = NMSHelper.getNMSClassByName("EntityCreature");
             Class c = NMSHelper.getNMSClassByName("PathfinderGoalPanic");
             Constructor constructor = c.getConstructor(creature, double.class);
-            return constructor.newInstance(creature.cast(getHandle()), d0);
+            return constructor.newInstance(creature.cast(getHandle()), speed);
         } catch (Exception ex) {
             MirrorMirror.logger().warning("Error constructing PathfinderGoalPanic");
             ex.printStackTrace();

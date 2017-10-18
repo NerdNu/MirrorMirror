@@ -11,12 +11,17 @@ import java.lang.reflect.Constructor;
 public class Breed extends AbstractPathfinderGoal {
 
 
-    private double d0;
+    private double speed;
 
 
-    public Breed(LivingEntity baseEntity, double d0) {
+    /**
+     * Constructor
+     * @param baseEntity the entity
+     * @param speed the speed the entity moves at while breeding
+     */
+    public Breed(LivingEntity baseEntity, double speed) {
         super(baseEntity);
-        this.d0 = d0;
+        this.speed = speed;
     }
 
 
@@ -26,7 +31,7 @@ public class Breed extends AbstractPathfinderGoal {
             Class animal = NMSHelper.getNMSClassByName("EntityAnimal");
             Class c = NMSHelper.getNMSClassByName("PathfinderGoalBreed");
             Constructor constructor = c.getConstructor(animal, double.class);
-            return constructor.newInstance(animal.cast(getHandle()), d0);
+            return constructor.newInstance(animal.cast(getHandle()), speed);
         } catch (Exception ex) {
             MirrorMirror.logger().warning("Error constructing PathfinderGoalBreed");
             ex.printStackTrace();

@@ -15,16 +15,23 @@ import java.lang.reflect.Constructor;
 public class BowShoot extends AbstractPathfinderGoal {
 
 
-    private double d0;
-    private int i;
-    private float f;
+    private double speedMultiplier;
+    private int delay;
+    private float maxDistance;
 
 
-    public BowShoot(LivingEntity baseEntity, double d0, int i, float f) {
+    /**
+     * Constructor
+     * @param baseEntity the entity
+     * @param speedMultiplier increase movement speed while attacking
+     * @param delay minimum delay between shots
+     * @param maxDistance maximum distance to attack from
+     */
+    public BowShoot(LivingEntity baseEntity, double speedMultiplier, int delay, float maxDistance) {
         super(baseEntity);
-        this.d0 = d0;
-        this.i = i;
-        this.f = f;
+        this.speedMultiplier = speedMultiplier;
+        this.delay = delay;
+        this.maxDistance = maxDistance;
     }
 
 
@@ -34,7 +41,7 @@ public class BowShoot extends AbstractPathfinderGoal {
             Class skeleton = NMSHelper.getNMSClassByName("EntitySkeletonAbstract");
             Class c = NMSHelper.getNMSClassByName("PathfinderGoalBowShoot");
             Constructor constructor = c.getConstructors()[0];
-            return constructor.newInstance(skeleton.cast(getHandle()), d0, i, f);
+            return constructor.newInstance(skeleton.cast(getHandle()), speedMultiplier, delay, maxDistance);
         } catch (Exception ex) {
             MirrorMirror.logger().warning("Error constructing PathfinderGoalBowShoot");
             ex.printStackTrace();
