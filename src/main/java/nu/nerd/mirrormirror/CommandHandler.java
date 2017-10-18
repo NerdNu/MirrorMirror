@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Tameable;
 import org.bukkit.inventory.ItemStack;
 
 
@@ -110,15 +111,15 @@ public class CommandHandler implements CommandExecutor {
                 e.injectGoal(3, new LookAtPlayer(base, "EntityVillager"));
                 e.clearTargets();
             }
-            else if (args[0].equalsIgnoreCase("llama")) {
+            else if (args[0].equalsIgnoreCase("cat")) {
                 Player p = (Player) sender;
-                LivingEntity base = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.LLAMA);
+                LivingEntity base = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.OCELOT);
+                ((Tameable) base).setOwner(p);
+                ((Tameable) base).setTamed(true);
                 ExtendedEntity e = new ExtendedEntity(base);
                 e.clearGoals();
-                e.injectGoal(1, new LlamaFollow(base, 2.0d));
-                e.injectGoal(2, new ArrowAttack(base, 1.25d, 40, 20.0f));
+                e.injectGoal(2, new FollowOwner(base, 1.0d, 5.0f, 10.0f));
                 e.clearTargets();
-                e.injectTarget(1, new NearestAttackableTarget(base, "EntityHuman"));
             }
             return true;
         }
