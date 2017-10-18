@@ -110,6 +110,16 @@ public class CommandHandler implements CommandExecutor {
                 e.injectGoal(3, new LookAtPlayer(base, "EntityVillager"));
                 e.clearTargets();
             }
+            else if (args[0].equalsIgnoreCase("llama")) {
+                Player p = (Player) sender;
+                LivingEntity base = (LivingEntity) p.getWorld().spawnEntity(p.getLocation(), EntityType.LLAMA);
+                ExtendedEntity e = new ExtendedEntity(base);
+                e.clearGoals();
+                e.injectGoal(1, new LlamaFollow(base, 2.0d));
+                e.injectGoal(2, new ArrowAttack(base, 1.25d, 40, 20.0f));
+                e.clearTargets();
+                e.injectTarget(1, new NearestAttackableTarget(base, "EntityHuman"));
+            }
             return true;
         }
         return false;

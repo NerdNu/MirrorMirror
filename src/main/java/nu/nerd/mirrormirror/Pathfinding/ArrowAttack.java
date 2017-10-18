@@ -26,6 +26,11 @@ public class ArrowAttack extends AbstractPathfinderGoal {
     }
 
 
+    public ArrowAttack(LivingEntity baseEntity, double moveSpeed, int maxAttackTime, float maxAttackDistance) {
+        this(baseEntity, moveSpeed, maxAttackTime, maxAttackTime, maxAttackDistance);
+    }
+
+
     @SuppressWarnings("unchecked")
     public Object get() {
         try {
